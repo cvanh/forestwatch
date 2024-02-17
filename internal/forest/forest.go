@@ -103,7 +103,11 @@ func GetBuilds(token string) forest_builds_response {
 	var builds forest_builds_response
 
 	// parse the json into something we can use
-	json.Unmarshal(body, &builds)
+	err = json.Unmarshal(body, &builds)
+
+	if err != nil {
+		log.Println("error while parsing json")
+	}
 
 	return builds
 }
