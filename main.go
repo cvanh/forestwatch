@@ -82,7 +82,8 @@ type forest_builds_response struct {
 func main() {
 	// prompt for token
 	renderWindow()
-	getBuilds()
+
+	var builds = getBuilds()
 
 }
 
