@@ -15,8 +15,8 @@ var ForestJwtToken string
 func main() {
 	// prompt for token
 	renderWindow()
-	kaas := forest.GetBuilds(ForestJwtToken)
-	log.Println(kaas)
+	builds := forest.GetBuilds(ForestJwtToken)
+	log.Println(builds)
 }
 
 // renders the window where forest jwt is entered
