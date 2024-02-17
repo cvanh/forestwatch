@@ -2,7 +2,7 @@ package forest
 
 import (
 	"encoding/json"
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
 )
@@ -68,13 +68,16 @@ type forest_build struct {
 	Message     string            `json:"message"`
 }
 
-var token string
-
 type forest_builds_response struct {
 	Builds []forest_build `json:"builds"`
 }
 
-func GetBuilds(token string) {
+// var token string
+// type token struct {
+// 	token string
+// }
+
+func GetBuilds(token string) forest_builds_response {
 	// set the url and method
 	req, _ := http.NewRequest("GET", "https://api.forest.host/v1/builds/", nil)
 
@@ -89,9 +92,9 @@ func GetBuilds(token string) {
 		log.Printf("got error with http status %s while fetching builds", err)
 	}
 
-	// defer resp.Body.Close()
+	defer resp.Body.Close()
 
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 
 	if err != nil {
 		log.Fatalln("error while reading body")
@@ -99,5 +102,8 @@ func GetBuilds(token string) {
 
 	var builds forest_builds_response
 
+	// parse the json into something we can use
 	json.Unmarshal(body, &builds)
+
+	return builds
 }
