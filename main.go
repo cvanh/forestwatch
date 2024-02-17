@@ -40,6 +40,19 @@ func renderWindow() {
 		},
 	}
 
+	// if desk, ok := myApp.(desktop.App); ok {
+	// 	m := fyne.NewMenu("MyApp",
+	// 		fyne.NewMenuItem("Show jwt menu", func() {
+	// 			myWindow.Show()
+	// 		}))
+	// 	desk.SetSystemTrayMenu(m)
+	// }
+
+	// myWindow.SetContent(widget.NewLabel("Fyne System Tray"))
+	// myWindow.SetCloseIntercept(func() {
+	// 	myWindow.Hide()
+	// })
+
 	myWindow.SetContent(form)
 	myWindow.ShowAndRun()
 }

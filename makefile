@@ -16,5 +16,7 @@ fmt:
 run_dbg: build
 	dlv debug github.com/cvanh/forestwatch --headless --listen :2345 --log -- "$@"
 
+package:
+	fyne package -release -src ./
 
 .PHONY: run, lint,run_dbg

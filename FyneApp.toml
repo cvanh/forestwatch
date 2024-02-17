@@ -1,0 +1,8 @@
+Website = "https://imaretarded.dev"
+
+[Details]
+  Icon = "./assets/icon.png"
+  Name = "forestwatcher"
+  ID = "dev.imaretarded.forestwatcher"
+  Version = "0.0.1"
+  Build = 2
