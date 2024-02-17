@@ -6,4 +6,8 @@ build:
 run: build
 	./bin/main
 
-.PHONY: run
+lint:
+	golangci-lint run
+
+
+.PHONY: run, lint
