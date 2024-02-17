@@ -13,8 +13,8 @@ fmt:
 	go fmt 
 
 # run debug program
-run_dbg build: 
+run_dbg: build
 	dlv debug github.com/cvanh/forestwatch --headless --listen :2345 --log -- "$@"
 
 
-.PHONY: run, lint
+.PHONY: run, lint,run_dbg
