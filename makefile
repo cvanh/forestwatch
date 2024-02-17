@@ -9,5 +9,8 @@ run: build
 lint:
 	golangci-lint run
 
+fmt:
+	go fmt 
+
 
 .PHONY: run, lint
