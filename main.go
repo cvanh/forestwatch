@@ -15,73 +15,73 @@ const APPNAME = "forest watcher"
 var ForestJwtToken string
 
 type forest_user struct {
-	id         string
-	username   string
-	created_at string
+	Id       string `json:"id"`
+	Username string `json:"username"`
+	Created  string `json:"created_at"`
 }
 
 type forest_repository struct {
-	id               string
-	path             string
-	builder_path_key string
-	environment      forest_environment
+	Id            string             `json:"id"`
+	Path          string             `json:"Path"`
+	BuilderPubKey string             `json:"builder_path_key"`
+	Environment   forest_environment `json:"environment"`
 }
 
 type forest_environment struct {
-	id       string
-	branch   string
-	project  forest_project
-	services []forest_services
+	Id       string            `json:"id"`
+	Branch   string            `json:"branch"`
+	Project  forest_project    `json:"project"`
+	Services []forest_services `json:"services"`
 }
 
 type forest_services struct {
-	id          string
-	name        string
-	tools       []string
-	deploy_path string
-	index_path  string
+	Id         string   `json:"id"`
+	Name       string   `json:"name"`
+	Tools      []string `json:"tools"`
+	DeployPath string   `json:"deploy_path"`
+	IndexPath  string   `json:"index_path"`
 }
 type forest_team struct {
-	id   string
-	name string
-	slug string
+	Id   string `json:"id"`
+	Name string `json:"name"`
+	Slug string `json:"slug"`
 }
 
 type forest_project struct {
-	id   string
-	name string
-	slug string
-	team forest_team
+	Id   string      `json:"id"`
+	Name string      `json:"name"`
+	Slug string      `json:"slug"`
+	Team forest_team `json:"team"`
 }
 
 type forest_status struct {
-	id          int
-	name        string
-	description string
+	Id          int    `json:"Id"`
+	Name        string `json:"Name"`
+	Description string `json:"description"`
 }
 
 type forest_build struct {
-	id           string
-	repository   forest_repository
-	user         forest_user
-	build_status forest_status
-	deploy_path  string
-	index_file   string
-	before       string
-	after        string
-	deployed_at  string
-	started_at   string
-	finished_at  string
-	message      string
+	Id          string            `json:"id"`
+	Repository  forest_repository `json:"repository"`
+	User        forest_user       `json:"user"`
+	Status      forest_status     `json:"build_status"`
+	DeployPath  string            `json:"deploy_path"`
+	IndexFile   string            `json:"index_file"`
+	Before      string            `json:"before"`
+	After       string            `json:"after"`
+	Deployed    string            `json:"deployed_at"`
+	Started     string            `json:"started_at"`
+	Finished_at string            `json:"finished_at"`
+	Message     string            `json:"message"`
 }
 
 type forest_builds_response struct {
-	Builds []forest_build `json:"data"`
+	Builds []forest_build `json:"builds"`
 }
 
 func main() {
 	// prompt for token
-	// renderWindow()
+	renderWindow()
 	getBuilds()
 
 }
@@ -91,8 +91,7 @@ func getBuilds() {
 	req, _ := http.NewRequest("GET", "https://api.forest.host/v1/builds/", nil)
 
 	// add the auth header
-	req.Header.Set("Authorization", "Bearer .Ksk5a-R86y7l3zmidTvVzARDVCtyE-eqP1owxARS1OFx1IT6O5rZ-5i81BBTYxk5VkW1_IMHd6FH2pg8MdAPB7cEVHiIjH4fDe-HW4cV8vWp9UIE7dv9QrcQ3Q-Zw0is0XZzDfHuE5mmtzOO_hsfcoF_eoDpJ1qgLm7NXiTqE5kKn4FuYng-fMlSoR_CeO5XhFdWMpPU7zg5lRVkCEYjXo0i07yhv0etrMs3dzf6CwTsv4cto_VwDId4eG_oS6hSZmTdEwfoMHux9KDQ7SjYzpoAGd4LCnRmBQ2zZJ9pzVUAgDPWa_hDsL6n4NFtqbtdWz6PuG_xz47-fLwxTbPdVDyBb6reiGqQH3R6mitakOE-oNWHdrcicK9oOclKVJFUORTXuqdP2ydTYCHFZJ_PjPxZe0cXlSfBleBI4zwtqBZPKPMK7EpYzVAyJsHZ902jXF7m_cxNNmGHLCEOsjNSzONnQJ_B7d6EySh276wYrKLIJX18CyNmVRIvQ73bhtxEufmdFcjQnefye-eTYLg9XG6P6s1K4uQqlszWsrfYtlvujDgB6ndXierc9ZhK13BbOd-vXeXpagwp6EyWBeZAsQ-tmaB_kj4qD4nKs1jDidQShKj5ljqxsKH7zKgKJRaxfoavLiuxvGSwq71mteVUxElLCua65jnQs2y0zb7kps8")
-	// req.Header.Set("Authorization", ForestJwtToken)
+	req.Header.Set("Authorization", ForestJwtToken)
 
 	// send the request
 	resp, err := http.DefaultClient.Do(req)
@@ -110,12 +109,10 @@ func getBuilds() {
 		log.Fatalln("error while reading body")
 	}
 
-	var kaas forest_builds_response
+	var builds forest_builds_response
 
-	json.Unmarshal(body, &kaas)
+	json.Unmarshal(body, &builds)
 
-	log.Printf("%v", kaas)
-	// log.Printf("%v", kaas.builds)
 }
 
 // renders the window where forest jwt is entered
