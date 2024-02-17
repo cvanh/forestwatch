@@ -1,5 +1,7 @@
+BUILD_FLAGS=
+
 build:
-	go build -o ./bin/main main.go
+	go build $(BUILD_FLAGS) -o ./bin/main main.go    
 
 run: build
 	./bin/main
