@@ -5,6 +5,7 @@ import (
 
 	"fyne.io/fyne/v2/app"
 	"fyne.io/fyne/v2/widget"
+	"github.com/cvanh/forestwatch/internal/forest"
 )
 
 const APPNAME = "forest watcher"
@@ -14,7 +15,7 @@ var ForestJwtToken string
 func main() {
 	// prompt for token
 	renderWindow()
-	Forest.getBuilds(ForestJwtToken)
+	forest.GetBuilds(ForestJwtToken)
 }
 
 // renders the window where forest jwt is entered

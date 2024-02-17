@@ -1,4 +1,4 @@
-package Forest
+package forest
 
 import (
 	"encoding/json"
@@ -68,21 +68,18 @@ type forest_build struct {
 	Message     string            `json:"message"`
 }
 
+var token string
+
 type forest_builds_response struct {
 	Builds []forest_build `json:"builds"`
 }
 
-func main() {
-	// var builds = getBuilds()
-
-}
-
-func getBuilds(JwtToken string) {
+func GetBuilds(token string) {
 	// set the url and method
 	req, _ := http.NewRequest("GET", "https://api.forest.host/v1/builds/", nil)
 
 	// add the auth header
-	req.Header.Set("Authorization", JwtToken)
+	req.Header.Set("Authorization", token)
 
 	// send the request
 	resp, err := http.DefaultClient.Do(req)
@@ -103,5 +100,4 @@ func getBuilds(JwtToken string) {
 	var builds forest_builds_response
 
 	json.Unmarshal(body, &builds)
-
 }

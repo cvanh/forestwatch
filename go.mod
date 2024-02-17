@@ -1,4 +1,4 @@
-module forestwatch
+module github.com/cvanh/forestwatch
 
 go 1.21.5
 
