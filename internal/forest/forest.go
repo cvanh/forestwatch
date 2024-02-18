@@ -7,72 +7,13 @@ import (
 	"net/http"
 )
 
-type forest_user struct {
-	Id       string `json:"id"`
-	Username string `json:"username"`
-	Created  string `json:"created_at"`
+type Api interface {
+	setJwt(bearer string)
+	GetBuilds()
+	GetRefreshToken()
 }
 
-type forest_repository struct {
-	Id            string             `json:"id"`
-	Path          string             `json:"Path"`
-	BuilderPubKey string             `json:"builder_path_key"`
-	Environment   forest_environment `json:"environment"`
-}
-
-type forest_environment struct {
-	Id       string            `json:"id"`
-	Branch   string            `json:"branch"`
-	Project  forest_project    `json:"project"`
-	Services []forest_services `json:"services"`
-}
-
-type forest_services struct {
-	Id         string   `json:"id"`
-	Name       string   `json:"name"`
-	Tools      []string `json:"tools"`
-	DeployPath string   `json:"deploy_path"`
-	IndexPath  string   `json:"index_path"`
-}
-type forest_team struct {
-	Id   string `json:"id"`
-	Name string `json:"name"`
-	Slug string `json:"slug"`
-}
-
-type forest_project struct {
-	Id   string      `json:"id"`
-	Name string      `json:"name"`
-	Slug string      `json:"slug"`
-	Team forest_team `json:"team"`
-}
-
-type forest_status struct {
-	Id          int    `json:"Id"`
-	Name        string `json:"Name"`
-	Description string `json:"description"`
-}
-
-type forest_build struct {
-	Id          string            `json:"id"`
-	Repository  forest_repository `json:"repository"`
-	User        forest_user       `json:"user"`
-	Status      forest_status     `json:"build_status"`
-	DeployPath  string            `json:"deploy_path"`
-	IndexFile   string            `json:"index_file"`
-	Before      string            `json:"before"`
-	After       string            `json:"after"`
-	Deployed    string            `json:"deployed_at"`
-	Started     string            `json:"started_at"`
-	Finished_at string            `json:"finished_at"`
-	Message     string            `json:"message"`
-}
-
-type forest_builds_response struct {
-	Builds []forest_build `json:"builds"`
-}
-
-type ForestJwt struct {
+type Auth struct {
 	Id          string
 	Username    string
 	AccessToken string
@@ -80,12 +21,13 @@ type ForestJwt struct {
 }
 
 // get global builds
-func GetBuilds() forest_builds_response {
+func (f *Auth) GetBuilds() forest_builds_response {
 	// set the url and method
 	req, _ := http.NewRequest("GET", "https://api.forest.host/v1/builds/", nil)
 
 	// add the auth header
-	req.Header.Set("Authorization", ForestJwt)
+	log.Println("using", f.BearerToken)
+	req.Header.Set("Authorization", f.BearerToken)
 
 	// send the request
 	resp, err := http.DefaultClient.Do(req)
@@ -115,12 +57,12 @@ func GetBuilds() forest_builds_response {
 	return builds
 }
 
-func GetRefreshToken() forest_builds_response {
+func (f *Auth) GetRefreshToken() forest_builds_response {
 	// set the url and method
 	req, _ := http.NewRequest("GET", "https://api.forest.host/v1/auth/refresh_token/", nil)
 
 	// add the auth header
-	req.Header.Set("Authorization", ForestJwt)
+	req.Header.Set("Authorization", f.BearerToken)
 
 	// send the request
 	resp, err := http.DefaultClient.Do(req)
