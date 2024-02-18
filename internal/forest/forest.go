@@ -72,17 +72,55 @@ type forest_builds_response struct {
 	Builds []forest_build `json:"builds"`
 }
 
-// var token string
-// type token struct {
-// 	token string
-// }
+type ForestJwt struct {
+	Id          string
+	Username    string
+	AccessToken string
+	BearerToken string
+}
 
-func GetBuilds(token string) forest_builds_response {
+// get global builds
+func GetBuilds() forest_builds_response {
 	// set the url and method
 	req, _ := http.NewRequest("GET", "https://api.forest.host/v1/builds/", nil)
 
 	// add the auth header
-	req.Header.Set("Authorization", token)
+	req.Header.Set("Authorization", ForestJwt)
+
+	// send the request
+	resp, err := http.DefaultClient.Do(req)
+	log.Println(resp)
+
+	if err != nil {
+		log.Printf("got error with http status %s while fetching builds", err)
+	}
+
+	defer resp.Body.Close()
+
+	body, err := io.ReadAll(resp.Body)
+
+	if err != nil {
+		log.Fatalln("error while reading body")
+	}
+
+	var builds forest_builds_response
+
+	// parse the json into something we can use
+	err = json.Unmarshal(body, &builds)
+
+	if err != nil {
+		log.Println("error while parsing json")
+	}
+
+	return builds
+}
+
+func GetRefreshToken() forest_builds_response {
+	// set the url and method
+	req, _ := http.NewRequest("GET", "https://api.forest.host/v1/auth/refresh_token/", nil)
+
+	// add the auth header
+	req.Header.Set("Authorization", ForestJwt)
 
 	// send the request
 	resp, err := http.DefaultClient.Do(req)

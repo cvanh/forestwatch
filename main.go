@@ -10,12 +10,11 @@ import (
 
 const APPNAME = "forest watcher"
 
-var ForestJwtToken string
-
 func main() {
 	// prompt for token
 	renderWindow()
-	builds := forest.GetBuilds(ForestJwtToken)
+
+	builds := forest.GetBuilds()
 	log.Println(builds)
 }
 
@@ -32,8 +31,8 @@ func renderWindow() {
 		OnSubmit: func() { // optional, handle form submission
 			log.Printf("Form submitted, jwt is: %s", entry.Text)
 
-			// set the jwt token for the application
-			ForestJwtToken = entry.Text
+			// set the jwt token for the forest sdk
+			// *&forest.ForestJwt = entry.Text
 
 			// we dont need the window anymore right
 			myWindow.Close()
