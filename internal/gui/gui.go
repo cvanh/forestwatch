@@ -4,7 +4,6 @@ import (
 	"log"
 
 	"fyne.io/fyne/v2"
-	"fyne.io/fyne/v2/app"
 	"fyne.io/fyne/v2/driver/desktop"
 	"fyne.io/fyne/v2/widget"
 )
@@ -12,7 +11,6 @@ import (
 const APPNAME = "forest watcher"
 
 // store our forest token
-var ForestBearer string
 
 type App struct {
 	fyne.App
@@ -23,7 +21,7 @@ type App struct {
 
 // renders the window/settings where forest jwt is entered
 func (a *App) RenderWindow() {
-	a.App = app.New()
+	// a.App = app.New()
 
 	entry := widget.NewEntry()
 
@@ -34,7 +32,6 @@ func (a *App) RenderWindow() {
 			log.Printf("Form submitted, jwt is: %s", entry.Text)
 
 			// set the jwt token for the forest sdk
-			ForestBearer = entry.Text
 			a.Preferences().SetString("ForestBearer", entry.Text)
 
 			// we dont need the window anymore right
