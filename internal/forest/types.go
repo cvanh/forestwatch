@@ -62,6 +62,13 @@ type forest_build struct {
 	Message     string            `json:"message"`
 }
 
-type forest_builds_response struct {
+type forest_builds struct {
 	Builds []forest_build `json:"builds"`
+}
+
+// return object of /v1/auth/refresh_token/
+type forest_refresh_token struct {
+	Id          string `json:"id"`
+	Username    string `json:"username"`
+	AccessToken string `json:"access_token"`
 }
