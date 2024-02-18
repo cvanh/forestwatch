@@ -2,10 +2,12 @@ package gui
 
 import (
 	"log"
+	"time"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/driver/desktop"
 	"fyne.io/fyne/v2/widget"
+	"github.com/cvanh/forestwatch/internal/forest"
 )
 
 const APPNAME = "forest watcher"
@@ -17,11 +19,8 @@ type App struct {
 	NewWindow fyne.Window
 }
 
-// var a *App
-
 // renders the window/settings where forest jwt is entered
 func (a *App) RenderWindow() {
-	// a.App = app.New()
 
 	entry := widget.NewEntry()
 
@@ -36,6 +35,7 @@ func (a *App) RenderWindow() {
 
 			// we dont need the window anymore right
 			a.NewWindow.Hide()
+			a.GetBuildsCron()
 
 		},
 	}
@@ -68,4 +68,15 @@ func (a *App) Render() {
 func (a *App) SendNotification(Title string, Content string) {
 	notif := fyne.NewNotification(Title, Content)
 	a.App.SendNotification(notif)
+}
+
+func (a *App) GetBuildsCron() {
+	token := a.Preferences().String("ForestBearer")
+
+	Forest := forest.Connect(token)
+	builds := Forest.GetBuilds()
+
+	log.Println(builds)
+	time.Sleep(10000)
+	go a.GetBuildsCron()
 }
