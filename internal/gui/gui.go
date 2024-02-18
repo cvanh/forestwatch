@@ -53,14 +53,13 @@ func (a *App) RenderWidget() {
 		desk.SetSystemTrayMenu(m)
 	}
 
-	a.NewWindow.SetContent(widget.NewLabel("Fyne System Tray"))
-	a.NewWindow.SetCloseIntercept(func() {
-		a.NewWindow.Hide()
-	})
 }
 
 // renders all the defined windows
 func (a *App) Render() {
+	a.NewWindow.SetCloseIntercept(func() {
+		a.NewWindow.Hide()
+	})
 	a.NewWindow.ShowAndRun()
 }
 
@@ -77,6 +76,6 @@ func (a *App) GetBuildsCron() {
 	builds := Forest.GetBuilds()
 
 	log.Println(builds)
-	time.Sleep(10000)
+	time.Sleep(1000000)
 	go a.GetBuildsCron()
 }

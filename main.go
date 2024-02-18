@@ -17,14 +17,15 @@ func main() {
 	a.NewWindow = a.App.NewWindow(APPNAME)
 
 	// get token from storage
-	token := a.Preferences().String("ForestBearer")
+	// token := a.Preferences().String("ForestBearer")
 
 	// if there is no token given yet ask for one otherwise run get builds every x
-	if token != "" {
-		a.RenderWindow()
-	} else {
-		a.GetBuildsCron()
-	}
+	// if token != "" {
+	// 	a.RenderWindow()
+	// } else {
+	// 	a.GetBuildsCron()
+	// }
+	a.RenderWindow()
 
 	a.RenderWidget()
 
