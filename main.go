@@ -14,13 +14,14 @@ const APPNAME = "forest watcher"
 var ForestBearer string
 
 func main() {
-	// prompt for token
 	k := &gui.App{App: app.New()}
 
 	k.NewWindow = k.App.NewWindow(APPNAME)
 
 	k.RenderWidget()
 	k.RenderWindow()
+
+	// k.SendNotification()
 
 	k.Render()
 

@@ -1,0 +1,2 @@
+# gui
+this package provides functions to create the window and taskbar widget. It is loosely bases on [rabbit](https://github.com/presskey/rabbit/blob/main/internal/app/app.go) and [Pixyne](https://github.com/vinser/pixyne/blob/master/main.go)

@@ -42,7 +42,7 @@ func (a *App) RenderWindow() {
 	a.NewWindow.SetContent(form)
 }
 
-// render the widget in taskbar
+// render the app widget in taskbar
 func (a *App) RenderWidget() {
 	if desk, ok := a.App.(desktop.App); ok {
 		m := fyne.NewMenu(APPNAME,
@@ -61,4 +61,10 @@ func (a *App) RenderWidget() {
 // renders all the defined windows
 func (a *App) Render() {
 	a.NewWindow.ShowAndRun()
+}
+
+// send notification to X window
+func (a *App) SendNotification(Title string, Content string) {
+	notif := fyne.NewNotification(Title, Content)
+	a.App.SendNotification(notif)
 }
