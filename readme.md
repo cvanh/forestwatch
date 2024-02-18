@@ -13,6 +13,7 @@ you need [dlv](https://github.com/derekparker/delve/tree/master/Documentation/in
 `make lint` run the go linter
 `make fmt` format the code
 `make publish` create a packaged macos app
+`make test` run the unit tests
 
 
 ### structure

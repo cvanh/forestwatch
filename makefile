@@ -19,4 +19,8 @@ run_dbg: build
 package:
 	fyne package -release -src ./
 
-.PHONY: run, lint,run_dbg
+# test fucking everything
+test: 
+	go test ./... -- "$@"
+
+.PHONY: run, lint, run_dbg
