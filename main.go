@@ -11,23 +11,30 @@ import (
 const APPNAME = "forest watcher"
 
 // store our forest token
-var ForestBearer string
-
 func main() {
-	k := &gui.App{App: app.New()}
+	a := &gui.App{App: app.New()}
 
-	k.NewWindow = k.App.NewWindow(APPNAME)
+	a.NewWindow = a.App.NewWindow(APPNAME)
 
-	k.RenderWidget()
-	k.RenderWindow()
+	token := a.Preferences().String("ForestBearer")
+
+	if token == "" {
+		a.RenderWidget()
+	}
+	f := forest.Connect(token)
+
+	// fetchBuilds(f)
+
+	a.RenderWindow()
 
 	// k.SendNotification()
 
-	k.Render()
+	a.Render()
 
-	f := forest.Connect(k.Preferences().String("ForestBearer"))
+}
+
+func fetchBuilds(f *forest.Auth) {
 	builds := f.GetBuilds()
 
 	log.Println(builds)
-
 }

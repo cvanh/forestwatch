@@ -36,6 +36,7 @@ func (a *App) RenderWindow() {
 
 			// we dont need the window anymore right
 			a.NewWindow.Hide()
+
 		},
 	}
 
