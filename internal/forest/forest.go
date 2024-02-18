@@ -7,16 +7,22 @@ import (
 	"net/http"
 )
 
-type Api interface {
-	setJwt(bearer string)
-	GetBuilds()
-	GetRefreshToken()
-}
+// type Api interface {
+// 	GetBuilds()
+// 	GetRefreshToken()
+// }
 
 type Auth struct {
-	Id          string
-	Username    string
+	// Forests user id
+	Id string
+
+	// Forests username
+	Username string
+
+	// Forests access_token
 	AccessToken string
+
+	// Forests bearer token, defined by external method
 	BearerToken string
 }
 
